@@ -8,9 +8,10 @@ module.exports = withMT({
       inter: ["Inter", "sans-serif"],
     },
     extend: {
+      backgroundImage: {
+        "hero-bg": "url('https://i.ibb.co/fSDLV4y/banner.jpg')",
+      },
       colors: {
-        metal: "#0080B2",
-        menu: "#5bc4aa",
         saffron: "#FFA600",
         head: "#57C875",
         'sub-head': "#333333",

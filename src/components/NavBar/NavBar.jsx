@@ -46,6 +46,7 @@ const NavBar = () => {
     </>
   );
   return (
+    <div className="fixed z-10 w-screen">
     <nav className="bg-gray-50">
       <div className="navbar container mx-auto">
         <div className="navbar-start">
@@ -143,6 +144,7 @@ const NavBar = () => {
         </div>
       </div>
     </nav>
+    </div>
   );
 };
 
