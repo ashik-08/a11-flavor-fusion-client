@@ -1,10 +1,72 @@
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import toast from "react-hot-toast";
+import { AuthContext } from "../../Provider/AuthProvider";
+import { updateProfile } from "firebase/auth";
 
 const RegisterPage = () => {
   const [showPass, setShowPass] = useState(false);
+  const { createUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const photo = form.photo.value;
+    const password = form.password.value;
+    // const terms = form.terms.checked;
+    // console.log(name, email, password, photo, terms);
+
+    const passRegex =
+      /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>?])[A-Za-z\d!@#$%^&*()_+[\]{};':"\\|,.<>?]{6,}$/;
+
+    // check password
+    if (!passRegex.test(password)) {
+      toast.error(
+        "Password must contain one uppercase letter, one special character, and minimum 6 characters."
+      );
+      return;
+    }
+
+    const toastId = toast.loading("Creating user...");
+
+    // create user
+    createUser(email, password)
+      .then((result) => {
+        console.log(result.user);
+        // update profile
+        updateProfile(result.user, {
+          displayName: name,
+          photoURL: photo,
+        })
+          .then(() => {
+            // Profile updated!
+          })
+          .catch(() => {
+            // An error occurred
+          });
+
+        toast.success("Registered Successfully.", { id: toastId });
+        
+        // reset the input field
+        form.reset();
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error(error);
+        // check for duplicate email usage
+        if (error.message === "Firebase: Error (auth/email-already-in-use).") {
+          toast.error("Email already is in use", { id: toastId });
+        } else if (error.message === "Firebase: Error (auth/invalid-email).") {
+          toast.error("Invalid Email", { id: toastId });
+        }
+      });
+  };
+
   return (
     <>
       <Helmet>
@@ -22,9 +84,7 @@ const RegisterPage = () => {
           <h1 className="text-center text-sub-head text-2xl md:text-3xl lg:text-4xl font-semibold mb-12">
             Sign Up
           </h1>
-          <form
-          // onSubmit={handleRegister}
-          >
+          <form onSubmit={handleRegister}>
             <span className="space-y-4">
               <p className="text-sub-head text-lg font-semibold">Name</p>
               <input
@@ -52,7 +112,7 @@ const RegisterPage = () => {
               <input
                 className="text-details w-full px-5 py-4 rounded-lg outline outline-1"
                 type="url"
-                name="url"
+                name="photo"
                 placeholder="Your Photo URL"
                 required
               />
@@ -98,7 +158,6 @@ const RegisterPage = () => {
             </Link>
           </p>
         </div>
-        {/* <ToastContainer></ToastContainer> */}
       </section>
     </>
   );
