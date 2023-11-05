@@ -15,9 +15,9 @@ const Banner = () => {
               with passion. Explore our diverse menu and treat your taste buds
               to an extraordinary dining experience.
             </p>
-            <button className="btn glass">
-              <Link to="/allFoodItems">All Items</Link>
-            </button>
+            <Link to="/allFoodItems" className="btn glass">
+              All Items
+            </Link>
           </div>
         </div>
       </div>
