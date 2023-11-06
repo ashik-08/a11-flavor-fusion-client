@@ -1,9 +1,23 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import { AuthContext } from "../../Provider/AuthProvider";
+import toast from "react-hot-toast";
 
 const NavBar = () => {
-  const user = useState(false);
+  const { user, logOut } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    const toastId = toast.loading("Logging out...");
+    logOut()
+      .then(() => {
+        toast.success("Successfully logged out.", { id: toastId });
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error("Something went wrong!", { id: toastId });
+      });
+  };
 
   const links = (
     <>
@@ -127,11 +141,7 @@ const NavBar = () => {
                       <Link to="/">My Ordered Food Items</Link>
                     </li>
                     <li>
-                      <Link
-                      // onClick={handleLogOut}
-                      >
-                        Logout
-                      </Link>
+                      <Link onClick={handleLogout}>Logout</Link>
                     </li>
                   </>
                 </ul>
