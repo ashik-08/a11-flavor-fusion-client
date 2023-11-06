@@ -1,7 +1,7 @@
 [
   {
     "food_name": "Spaghetti Carbonara",
-    "food_image": "spaghetti.jpg",
+    "food_image": "https://shorturl.at/ehk12",
     "food_category": "Pasta",
     "quantity": 20,
     "order": 0,
@@ -13,7 +13,7 @@
   },
   {
     "food_name": "Sushi Platter",
-    "food_image": "sushi.jpg",
+    "food_image": "https://shorturl.at/rxCP3",
     "food_category": "Sushi",
     "quantity": 15,
     "order": 0,
@@ -25,7 +25,7 @@
   },
   {
     "food_name": "BBQ Ribs",
-    "food_image": "ribs.jpg",
+    "food_image": "https://shorturl.at/ftzE9",
     "food_category": "BBQ",
     "quantity": 30,
     "order": 0,
@@ -37,7 +37,7 @@
   },
   {
     "food_name": "Margarita Pizza",
-    "food_image": "pizza.jpg",
+    "food_image": "https://shorturl.at/crGY6",
     "food_category": "Pizza",
     "quantity": 25,
     "order": 0,
@@ -49,7 +49,7 @@
   },
   {
     "food_name": "Chicken Curry",
-    "food_image": "curry.jpg",
+    "food_image": "https://shorturl.at/iKNOT",
     "food_category": "Curry",
     "quantity": 40,
     "order": 0,
@@ -61,7 +61,7 @@
   },
   {
     "food_name": "Caesar Salad",
-    "food_image": "salad.jpg",
+    "food_image": "https://shorturl.at/uDEIU",
     "food_category": "Salad",
     "quantity": 20,
     "order": 0,
@@ -73,7 +73,7 @@
   },
   {
     "food_name": "Pad Thai",
-    "food_image": "pad_thai.jpg",
+    "food_image": "https://shorturl.at/qWX27",
     "food_category": "Noodles",
     "quantity": 25,
     "order": 0,
@@ -85,7 +85,7 @@
   },
   {
     "food_name": "Tandoori Chicken",
-    "food_image": "tandoori.jpg",
+    "food_image": "https://shorturl.at/pHKM0",
     "food_category": "Indian",
     "quantity": 35,
     "order": 0,
@@ -97,7 +97,7 @@
   },
   {
     "food_name": "Sashimi Platter",
-    "food_image": "sashimi.jpg",
+    "food_image": "https://shorturl.at/kGMX6",
     "food_category": "Sushi",
     "quantity": 20,
     "order": 0,
@@ -109,7 +109,7 @@
   },
   {
     "food_name": "Steak Au Poivre",
-    "food_image": "steak.jpg",
+    "food_image": "https://shorturl.at/yJQT6",
     "food_category": "Steak",
     "quantity": 30,
     "order": 0,
@@ -121,7 +121,7 @@
   },
   {
     "food_name": "Vegetable Biryani",
-    "food_image": "biryani.jpg",
+    "food_image": "https://shorturl.at/nsVY5",
     "food_category": "Indian",
     "quantity": 35,
     "order": 0,
@@ -133,7 +133,7 @@
   },
   {
     "food_name": "Shrimp Scampi",
-    "food_image": "scampi.jpg",
+    "food_image": "https://shorturl.at/gxN28",
     "food_category": "Seafood",
     "quantity": 25,
     "order": 0,
@@ -145,7 +145,7 @@
   },
   {
     "food_name": "Chocolate Fondue",
-    "food_image": "fondue.jpg",
+    "food_image": "https://shorturl.at/lpyN4",
     "food_category": "Dessert",
     "quantity": 20,
     "order": 0,
@@ -157,7 +157,7 @@
   },
   {
     "food_name": "Tofu Stir-Fry",
-    "food_image": "stir_fry.jpg",
+    "food_image": "https://shorturl.at/dqv14",
     "food_category": "Vegetarian",
     "quantity": 40,
     "order": 0,
@@ -169,7 +169,7 @@
   },
   {
     "food_name": "Pecan Pie",
-    "food_image": "pecan_pie.jpg",
+    "food_image": "https://shorturl.at/yDGSZ",
     "food_category": "Dessert",
     "quantity": 15,
     "order": 0,
@@ -181,7 +181,7 @@
   },
   {
     "food_name": "Lamb Tagine",
-    "food_image": "tagine.jpg",
+    "food_image": "https://shorturl.at/stGHY",
     "food_category": "Moroccan",
     "quantity": 30,
     "order": 0,
@@ -193,7 +193,7 @@
   },
   {
     "food_name": "Pho",
-    "food_image": "pho.jpg",
+    "food_image": "https://shorturl.at/pvKQ5",
     "food_category": "Vietnamese",
     "quantity": 25,
     "order": 0,
@@ -205,7 +205,7 @@
   },
   {
     "food_name": "Tiramisu",
-    "food_image": "tiramisu.jpg",
+    "food_image": "https://shorturl.at/dlAJK",
     "food_category": "Dessert",
     "quantity": 20,
     "order": 0,
@@ -217,7 +217,7 @@
   },
   {
     "food_name": "Goulash",
-    "food_image": "goulash.jpg",
+    "food_image": "https://shorturl.at/ijvJ0",
     "food_category": "Hungarian",
     "quantity": 40,
     "order": 0,
@@ -229,7 +229,7 @@
   },
   {
     "food_name": "Greek Salad",
-    "food_image": "greek_salad.jpg",
+    "food_image": "https://shorturl.at/BJNO6",
     "food_category": "Salad",
     "quantity": 20,
     "order": 0,
@@ -241,7 +241,7 @@
   },
   {
     "food_name": "Key Lime Pie",
-    "food_image": "key_lime_pie.jpg",
+    "food_image": "https://shorturl.at/rIOS2",
     "food_category": "Dessert",
     "quantity": 15,
     "order": 0,
@@ -253,7 +253,7 @@
   },
   {
     "food_name": "Beef Bulgogi",
-    "food_image": "bulgogi.jpg",
+    "food_image": "https://shorturl.at/biwAJ",
     "food_category": "Korean",
     "quantity": 30,
     "order": 0,
@@ -265,7 +265,7 @@
   },
   {
     "food_name": "Caprese Salad",
-    "food_image": "caprese_salad.jpg",
+    "food_image": "https://shorturl.at/ktuS6",
     "food_category": "Salad",
     "quantity": 25,
     "order": 0,
@@ -277,7 +277,7 @@
   },
   {
     "food_name": "Moussaka",
-    "food_image": "moussaka.jpg",
+    "food_image": "https://i.ibb.co/2ndZXJx/image.png",
     "food_category": "Greek",
     "quantity": 20,
     "order": 0,
@@ -289,7 +289,7 @@
   },
   {
     "food_name": "Ceviche",
-    "food_image": "ceviche.jpg",
+    "food_image": "https://i.ibb.co/NWdtr6V/Ceviche.png",
     "food_category": "Seafood",
     "quantity": 20,
     "order": 0,
@@ -301,7 +301,7 @@
   },
   {
     "food_name": "Eggplant Parmesan",
-    "food_image": "eggplant_parmesan.jpg",
+    "food_image": "https://shorturl.at/GKNS3",
     "food_category": "Italian",
     "quantity": 25,
     "order": 0,
@@ -313,7 +313,7 @@
   },
   {
     "food_name": "Philly Cheesesteak",
-    "food_image": "cheesesteak.jpg",
+    "food_image": "https://shorturl.at/sEZ07",
     "food_category": "American",
     "quantity": 30,
     "order": 0,
@@ -325,7 +325,7 @@
   },
   {
     "food_name": "Ramen",
-    "food_image": "ramen.jpg",
+    "food_image": "https://shorturl.at/gzKN0",
     "food_category": "Japanese",
     "quantity": 35,
     "order": 0,
@@ -337,7 +337,7 @@
   },
   {
     "food_name": "Chana Masala",
-    "food_image": "chana_masala.jpg",
+    "food_image": "https://shorturl.at/bowEU",
     "food_category": "Indian",
     "quantity": 25,
     "order": 0,
@@ -349,7 +349,7 @@
   },
   {
     "food_name": "Tuna Tartare",
-    "food_image": "tuna_tartare.jpg",
+    "food_image": "https://shorturl.at/ajkJ4",
     "food_category": "Seafood",
     "quantity": 20,
     "order": 0,
