@@ -8,9 +8,13 @@ import toast from "react-hot-toast";
 
 const LoginPage = () => {
   const [showPass, setShowPass] = useState(false);
-  const { signInUser, signInWithGoogle } = useContext(AuthContext);
+  const { user, signInUser, signInWithGoogle } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
+
+  if (user?.email) {
+    return navigate("/");
+  }
 
   const handleLogin = (e) => {
     e.preventDefault();

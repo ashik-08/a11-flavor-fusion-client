@@ -8,8 +8,12 @@ import { updateProfile } from "firebase/auth";
 
 const RegisterPage = () => {
   const [showPass, setShowPass] = useState(false);
-  const { createUser } = useContext(AuthContext);
+  const { user, createUser } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  if (user?.email) {
+    return navigate("/");
+  }
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -51,7 +55,7 @@ const RegisterPage = () => {
           });
 
         toast.success("Registered Successfully.", { id: toastId });
-        
+
         // reset the input field
         form.reset();
         navigate("/");
