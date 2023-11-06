@@ -5,12 +5,18 @@ import { FcGoogle } from "react-icons/fc";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import toast from "react-hot-toast";
+import { useMutation } from "@tanstack/react-query";
+import { addUser } from "../../api/flavor_fusion";
 
 const LoginPage = () => {
   const [showPass, setShowPass] = useState(false);
   const { user, signInUser, signInWithGoogle } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
+
+  const { mutateAsync } = useMutation({
+    mutationFn: addUser,
+  });
 
   if (user?.email) {
     return navigate("/");
@@ -49,10 +55,31 @@ const LoginPage = () => {
   // google sign in
   const handleGoogleSignIn = () => {
     signInWithGoogle()
-      .then((result) => {
+      .then(async (result) => {
         console.log(result.user);
-        toast.success("Logged In Successfully.");
-        navigate(location?.state ? location?.state : "/");
+        // add new user to the database
+        const createdAt = result?.user?.metadata?.creationTime;
+        const user = {
+          name: result?.user?.displayName,
+          photo: result?.user?.photoURL,
+          email: result?.user?.email,
+          password: "",
+          createdAt: createdAt,
+        };
+
+        try {
+          const result = await mutateAsync(user);
+          if (result.insertedId) {
+            console.log("User Added Successfully.");
+            toast.success("Logged In Successfully.");
+            navigate(location?.state ? location?.state : "/");
+          }
+        } catch (error) {
+          console.error(error);
+          toast.error(error.message);
+        }
+        // toast.success("Logged In Successfully.");
+        // navigate(location?.state ? location?.state : "/");
       })
       .catch((error) => {
         console.error(error);

@@ -19,7 +19,7 @@ const AddFoodPage = () => {
     const food_image = form.image.value;
     const food_category = form.category.value;
     const quantity = Number(form.quantity.value);
-    const price = form.price.value;
+    const price = Number(form.price.value);
     const origin = form.origin.value;
     const ingredients = form.ingredients.value;
 
