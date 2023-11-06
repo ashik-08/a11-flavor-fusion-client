@@ -5,11 +5,17 @@ import { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { updateProfile } from "firebase/auth";
+import { addUser } from "../../api/flavor_fusion";
+import { useMutation } from "@tanstack/react-query";
 
 const RegisterPage = () => {
   const [showPass, setShowPass] = useState(false);
   const { user, createUser } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const { mutateAsync } = useMutation({
+    mutationFn: addUser,
+  });
 
   if (user?.email) {
     return navigate("/");
@@ -40,7 +46,7 @@ const RegisterPage = () => {
 
     // create user
     createUser(email, password)
-      .then((result) => {
+      .then(async (result) => {
         console.log(result.user);
         // update profile
         updateProfile(result.user, {
@@ -54,11 +60,23 @@ const RegisterPage = () => {
             // An error occurred
           });
 
-        toast.success("Registered Successfully.", { id: toastId });
+        // add new user to the database
+        const createdAt = result?.user?.metadata?.creationTime;
+        const user = { name, photo, email, password, createdAt: createdAt };
 
-        // reset the input field
-        form.reset();
-        navigate("/");
+        try {
+          const result = await mutateAsync(user);
+          if (result.insertedId) {
+            toast.success("Registered Successfully.", { id: toastId });
+            form.reset();
+            navigate("/");
+          }
+        } catch (error) {
+          console.error(error);
+          toast.error("An error occurred.", {
+            id: toastId,
+          });
+        }
       })
       .catch((error) => {
         console.error(error);
