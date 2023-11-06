@@ -67,16 +67,19 @@ const RegisterPage = () => {
         try {
           const result = await mutateAsync(user);
           if (result.insertedId) {
+            console.log("User Added Successfully.");
             toast.success("Registered Successfully.", { id: toastId });
             form.reset();
             navigate("/");
           }
         } catch (error) {
           console.error(error);
-          toast.error("An error occurred.", {
-            id: toastId,
-          });
+          toast.error(error.message, { id: toastId });
         }
+
+        // toast.success("Registered Successfully.", { id: toastId });
+        // form.reset();
+        // navigate("/");
       })
       .catch((error) => {
         console.error(error);
