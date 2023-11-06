@@ -44,16 +44,14 @@ const AddFoodPage = () => {
       if (result.insertedId) {
         toast.success("Food Item Added Successfully.", { id: toastId });
         form.reset();
+      } else if (result.message === "Already exists") {
+        toast.error("Item already exists.", { id: toastId });
       }
     } catch (error) {
       console.error(error);
-      if (error.message.includes("Already exists")) {
-        toast.error("Item already exists.", { id: toastId });
-      } else {
-        toast.error("An error occurred while adding this item.", {
-          id: toastId,
-        });
-      }
+      toast.error("An error occurred while adding this item.", {
+        id: toastId,
+      });
     }
   };
 

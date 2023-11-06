@@ -14,11 +14,7 @@ export const addUser = async (user) => {
 
 // add a new food item
 export const addFoodItem = async (newFoodItem) => {
-  try {
-    const response = await axiosInstance.post("/add-food-item", newFoodItem);
-    const data = await response.data;
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
+  const response = await axiosInstance.post("/add-food-item", newFoodItem);
+  const data = await response.data;
+  return data;
 };
