@@ -35,7 +35,7 @@ const NavBar = () => {
       </li>
       <li>
         <NavLink
-          to="/allFoodItems"
+          to="/all-food-items"
           className={({ isActive }) =>
             isActive
               ? "text-head text-sm md:text-lg font-bold"
@@ -132,13 +132,13 @@ const NavBar = () => {
                       <a>{user?.email}</a>
                     </li>
                     <li>
-                      <Link to="/">Add Food Item</Link>
+                      <Link to="/add-food-item">Add Food Item</Link>
                     </li>
                     <li>
-                      <Link to="/">My Added Food Items</Link>
+                      <Link to="/added-food-items">My Added Food Items</Link>
                     </li>
                     <li>
-                      <Link to="/">My Ordered Food Items</Link>
+                      <Link to="/ordered-food-items">My Ordered Food Items</Link>
                     </li>
                     <li>
                       <Link onClick={handleLogout}>Logout</Link>
