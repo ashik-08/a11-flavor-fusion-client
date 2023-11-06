@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useContext, useState } from "react";
 import toast from "react-hot-toast";
@@ -17,8 +17,9 @@ const RegisterPage = () => {
     mutationFn: addUser,
   });
 
-  if (user?.email) {
-    return navigate("/");
+  // Check if the user is already authenticated
+  if (user) {
+    return <Navigate to="/"></Navigate>;
   }
 
   const handleRegister = (e) => {
@@ -42,7 +43,7 @@ const RegisterPage = () => {
       return;
     }
 
-    const toastId = toast.loading("Creating User...");
+    const toastId = toast.loading("Registering User...");
 
     // create user
     createUser(email, password)
@@ -67,19 +68,17 @@ const RegisterPage = () => {
         try {
           const result = await mutateAsync(user);
           if (result.insertedId) {
-            console.log("User Added Successfully.");
-            toast.success("Registered Successfully.", { id: toastId });
-            form.reset();
-            navigate("/");
+            toast.success("User Created Successfully.");
+          } else if (result.message === "Already exists") {
+            console.log("User already exist.");
           }
         } catch (error) {
           console.error(error);
-          toast.error(error.message, { id: toastId });
+          toast.error(error.message);
         }
-
-        // toast.success("Registered Successfully.", { id: toastId });
-        // form.reset();
-        // navigate("/");
+        toast.success("Registered Successfully.", { id: toastId });
+        form.reset();
+        navigate("/");
       })
       .catch((error) => {
         console.error(error);

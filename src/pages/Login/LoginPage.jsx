@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { useContext, useState } from "react";
@@ -18,8 +18,9 @@ const LoginPage = () => {
     mutationFn: addUser,
   });
 
-  if (user?.email) {
-    return navigate("/");
+  // Check if the user is already authenticated
+  if (user) {
+    return <Navigate to="/"></Navigate>;
   }
 
   const handleLogin = (e) => {
@@ -70,16 +71,16 @@ const LoginPage = () => {
         try {
           const result = await mutateAsync(user);
           if (result.insertedId) {
-            console.log("User Added Successfully.");
-            toast.success("Logged In Successfully.");
-            navigate(location?.state ? location?.state : "/");
+            toast.success("User Created Successfully.");
+          } else if (result.message === "Already exists") {
+            console.log("User already exist.");
           }
         } catch (error) {
           console.error(error);
           toast.error(error.message);
         }
-        // toast.success("Logged In Successfully.");
-        // navigate(location?.state ? location?.state : "/");
+        toast.success("Logged In Successfully.");
+        navigate(location?.state ? location?.state : "/");
       })
       .catch((error) => {
         console.error(error);
