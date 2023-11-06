@@ -1,6 +1,91 @@
+import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const AddFoodPage = () => {
+  const { user } = useContext(AuthContext);
+
+  const handleAddFood = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const food_name = form.name.value;
+    const food_image = form.image.value;
+    const food_category = form.category.value;
+    const quantity = Number(form.quantity.value);
+    const price = form.price.value;
+    const origin = form.origin.value;
+    const ingredients = form.ingredients.value;
+
+    const newFoodItem = {
+      food_name,
+      food_image,
+      food_category,
+      quantity,
+      order: 0,
+      price,
+      added_by_name: user?.displayName,
+      added_by_email: user?.email,
+      origin,
+      ingredients,
+    };
+    console.log(newFoodItem);
+
+    // send data to the server
+
+    // try {
+    //   const response = await fetch(
+    //     `https://a10-gearshift-autos-server.vercel.app/brand/${brandName}`,
+    //     {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify(newCar),
+    //     }
+    //   );
+    //   const result = await response.json();
+    //   console.log(result);
+    //   if (result.insertedId) {
+    //     Swal.fire({
+    //       icon: "success",
+    //       title: "Success!",
+    //       text: `${name} Added Successfully!`,
+    //       confirmButtonText: "Cool",
+    //     });
+    //     form.reset();
+    //   }
+    // } catch (error) {
+    //   console.error(error.message);
+    //   if (error.message.includes(`No such brand ${brandName}`)) {
+    //     toast.error(
+    //       `Invalid Brand Name ${brandName}. Should be like BMW or Ford! (Hint: Capitalize Name)`,
+    //       {
+    //         position: "top-right",
+    //         autoClose: 5000,
+    //         hideProgressBar: false,
+    //         closeOnClick: true,
+    //         pauseOnHover: true,
+    //         draggable: true,
+    //         progress: undefined,
+    //         theme: "colored",
+    //       }
+    //     );
+    //   } else if (error.message.includes("Already exists in DB")) {
+    //     toast.error(`${name} Already Exists in Database`, {
+    //       position: "top-right",
+    //       autoClose: 5000,
+    //       hideProgressBar: false,
+    //       closeOnClick: true,
+    //       pauseOnHover: true,
+    //       draggable: true,
+    //       progress: undefined,
+    //       theme: "colored",
+    //     });
+    //   }
+    // }
+
+  };
+
   return (
     <>
       <Helmet>
@@ -18,7 +103,7 @@ const AddFoodPage = () => {
             distribution of letters, as opposed to using Content here.
           </p>
           <form
-            // onSubmit={handleAddCar}
+            onSubmit={handleAddFood}
             className="grid grid-cols-1 md:grid-cols-2 gap-6"
           >
             <span className="space-y-4">
