@@ -8,10 +8,10 @@ const NavBar = () => {
   const { user, logOut } = useContext(AuthContext);
 
   const handleLogout = () => {
-    const toastId = toast.loading("Logging out...");
+    const toastId = toast.loading("Logging Out...");
     logOut()
       .then(() => {
-        toast.success("Successfully logged out.", { id: toastId });
+        toast.success("Logged Out Successfully.", { id: toastId });
       })
       .catch((error) => {
         console.error(error);

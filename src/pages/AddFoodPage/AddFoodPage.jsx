@@ -1,9 +1,16 @@
 import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../../Provider/AuthProvider";
+import { useMutation } from "@tanstack/react-query";
+import { addFoodItem } from "../../api/flavor_fusion";
+import toast from "react-hot-toast";
 
 const AddFoodPage = () => {
   const { user } = useContext(AuthContext);
+
+  const { mutateAsync } = useMutation({
+    mutationFn: addFoodItem,
+  });
 
   const handleAddFood = async (e) => {
     e.preventDefault();
@@ -30,60 +37,24 @@ const AddFoodPage = () => {
     };
     console.log(newFoodItem);
 
-    // send data to the server
+    const toastId = toast.loading("Adding Food Item...");
 
-    // try {
-    //   const response = await fetch(
-    //     `https://a10-gearshift-autos-server.vercel.app/brand/${brandName}`,
-    //     {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify(newCar),
-    //     }
-    //   );
-    //   const result = await response.json();
-    //   console.log(result);
-    //   if (result.insertedId) {
-    //     Swal.fire({
-    //       icon: "success",
-    //       title: "Success!",
-    //       text: `${name} Added Successfully!`,
-    //       confirmButtonText: "Cool",
-    //     });
-    //     form.reset();
-    //   }
-    // } catch (error) {
-    //   console.error(error.message);
-    //   if (error.message.includes(`No such brand ${brandName}`)) {
-    //     toast.error(
-    //       `Invalid Brand Name ${brandName}. Should be like BMW or Ford! (Hint: Capitalize Name)`,
-    //       {
-    //         position: "top-right",
-    //         autoClose: 5000,
-    //         hideProgressBar: false,
-    //         closeOnClick: true,
-    //         pauseOnHover: true,
-    //         draggable: true,
-    //         progress: undefined,
-    //         theme: "colored",
-    //       }
-    //     );
-    //   } else if (error.message.includes("Already exists in DB")) {
-    //     toast.error(`${name} Already Exists in Database`, {
-    //       position: "top-right",
-    //       autoClose: 5000,
-    //       hideProgressBar: false,
-    //       closeOnClick: true,
-    //       pauseOnHover: true,
-    //       draggable: true,
-    //       progress: undefined,
-    //       theme: "colored",
-    //     });
-    //   }
-    // }
-
+    try {
+      const result = await mutateAsync(newFoodItem);
+      if (result.insertedId) {
+        toast.success("Food Item Added Successfully.", { id: toastId });
+        form.reset();
+      }
+    } catch (error) {
+      console.error(error);
+      if (error.message.includes("Already exists")) {
+        toast.error("Item already exists.", { id: toastId });
+      } else {
+        toast.error("An error occurred while adding this item.", {
+          id: toastId,
+        });
+      }
+    }
   };
 
   return (

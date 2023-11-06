@@ -36,7 +36,7 @@ const RegisterPage = () => {
       return;
     }
 
-    const toastId = toast.loading("Creating user...");
+    const toastId = toast.loading("Creating User...");
 
     // create user
     createUser(email, password)
@@ -64,7 +64,7 @@ const RegisterPage = () => {
         console.error(error);
         // check for duplicate email usage
         if (error.message === "Firebase: Error (auth/email-already-in-use).") {
-          toast.error("Email already is in use", { id: toastId });
+          toast.error("Email is in use already", { id: toastId });
         } else if (error.message === "Firebase: Error (auth/invalid-email).") {
           toast.error("Invalid Email", { id: toastId });
         }

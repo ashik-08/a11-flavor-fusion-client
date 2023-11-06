@@ -23,7 +23,7 @@ const LoginPage = () => {
     const password = form.password.value;
     // console.log(email, password);
 
-    const toastId = toast.loading("Logging in...");
+    const toastId = toast.loading("Logging In...");
 
     // signIn user
     signInUser(email, password)
