@@ -1,17 +1,74 @@
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
-import { FaEye, FaEyeSlash, FaGithub, FaGoogle } from "react-icons/fa";
-import { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
+import toast from "react-hot-toast";
 
 const LoginPage = () => {
   const [showPass, setShowPass] = useState(false);
+  const { signInUser, signInWithGoogle } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    // console.log(email, password);
+
+    const toastId = toast.loading("Logging in...");
+
+    // signIn user
+    signInUser(email, password)
+      .then((result) => {
+        console.log(result.user);
+        toast.success("Logged In Successfully.", { id: toastId });
+        form.reset();
+        navigate(location?.state ? location?.state : "/");
+      })
+      .catch((error) => {
+        console.error(error);
+        // check for invalid credential
+        if (
+          error.message === "Firebase: Error (auth/invalid-login-credentials)."
+        ) {
+          toast.error("Invalid Email or Password", {
+            id: toastId,
+          });
+        }
+      });
+  };
+
+  // google sign in
+  const handleGoogleSignIn = () => {
+    signInWithGoogle()
+      .then((result) => {
+        console.log(result.user);
+        toast.success("Logged In Successfully.");
+        navigate(location?.state ? location?.state : "/");
+      })
+      .catch((error) => {
+        console.error(error);
+        if (
+          error.message ===
+          "Firebase: Error (auth/account-exists-with-different-credential)."
+        ) {
+          toast.error("Account exists with different credential.");
+        } else {
+          toast.error("Something went wrong!");
+        }
+      });
+  };
 
   return (
     <>
       <Helmet>
         <title>Flavor Fusion | Login</title>
       </Helmet>
-      <section className="flex flex-col lg:flex-row items-center gap-16 md:gap-24 container mx-auto my-20 lg:my-6">
+      <section className="flex flex-col lg:flex-row items-center gap-16 md:gap-24 container mx-auto my-20">
         <div className="flex-1">
           <img
             className="outline-dashed outline-1 outline-blue-gray-50 rounded-xl animate-pulse"
@@ -23,9 +80,7 @@ const LoginPage = () => {
           <h1 className="text-center text-sub-head text-2xl md:text-3xl lg:text-4xl font-semibold mb-12">
             Sign In
           </h1>
-          <form
-          //   onSubmit={}
-          >
+          <form onSubmit={handleLogin}>
             <span className="space-y-4">
               <p className="text-sub-head text-lg font-semibold mt-8">Email</p>
               <input
@@ -54,9 +109,14 @@ const LoginPage = () => {
                 {showPass ? <FaEye></FaEye> : <FaEyeSlash></FaEyeSlash>}
               </span>
             </span>
-            <button className="text-sub-head font-semibold hover:text-head mt-5">
-              Forgot password?
-            </button>
+            <p className="mt-5">
+              <a
+                href="#"
+                className="text-sub-head font-semibold hover:text-head"
+              >
+                Forgot password?
+              </a>
+            </p>
             <button className="bg-head text-white text-xl font-semibold py-4 w-full rounded-lg my-8">
               <input type="submit" value="Login" />
             </button>
@@ -65,19 +125,12 @@ const LoginPage = () => {
             <p className="text-center text-sub-head text-lg font-medium">
               Or Sign In with
             </p>
-            <div className="flex justify-center items-center gap-8 mt-8 mb-12">
+            <div className="flex justify-center items-center mt-8 mb-12">
               <button
-                //   onClick={handleGoogleSignIn}
+                onClick={handleGoogleSignIn}
                 className="bg-[#F5F5F8] p-3 rounded-full"
               >
-                <FaGoogle></FaGoogle>
-              </button>
-
-              <button
-                //   onClick={handleGithubSignIn}
-                className="bg-[#F5F5F8] p-3 rounded-full"
-              >
-                <FaGithub></FaGithub>
+                <FcGoogle></FcGoogle>
               </button>
             </div>
             <p className="text-center text-sub-head text-lg">
