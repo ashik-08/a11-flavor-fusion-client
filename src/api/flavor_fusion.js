@@ -7,14 +7,14 @@ const axiosInstance = axios.create({
 
 // add a new user
 export const addUser = async (user) => {
-  const response = await axiosInstance.post("/add-user", user);
+  const response = await axiosInstance.post("/users", user);
   const data = await response.data;
   return data;
 };
 
 // add a new food item
 export const addFoodItem = async (newFoodItem) => {
-  const response = await axiosInstance.post("/add-food-item", newFoodItem);
+  const response = await axiosInstance.post("/food-items", newFoodItem);
   const data = await response.data;
   return data;
 };
