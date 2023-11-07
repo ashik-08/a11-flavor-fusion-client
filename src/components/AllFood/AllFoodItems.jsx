@@ -3,6 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { getFoodItems } from "../../api/flavor_fusion";
 import FoodItemsCard from "./FoodItemsCard";
+import LoadingSpinner from "../LoadingState/LoadingSpinner";
+import EmptyState from "../EmptyState/EmptyState";
 
 const AllFoodItems = () => {
   const [category, setCategory] = useState("");
@@ -37,6 +39,22 @@ const AllFoodItems = () => {
     queryFn: async () => await getFoodItems(),
   });
   console.log(foodItems);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center pt-[27%]">
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
+  if (foodItems.res.length === 0) {
+    return (
+      <div className="flex justify-center items-center pt-[20%]">
+        <EmptyState />
+      </div>
+    );
+  }
 
   return (
     <section className="pt-24 md:pt-28 lg:pt-32 xl:pt-36 space-y-8 md:space-y-12 lg:space-y-14 xl:space-y-16">
@@ -106,11 +124,11 @@ const AllFoodItems = () => {
         </div>
       </div>
       {/* food items card */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {foodItems?.result.map((item) => (
           <FoodItemsCard key={item._id} food={item} />
         ))}
-      </div>
+      </div> */}
       {/* pagination */}
       <div className="join flex justify-center">
         <div className="border border-head">
