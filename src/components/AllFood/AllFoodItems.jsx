@@ -1,5 +1,8 @@
 import { Input, Option, Select } from "@material-tailwind/react";
+import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import { getFoodItems } from "../../api/flavor_fusion";
+import FoodItemsCard from "./FoodItemsCard";
 
 const AllFoodItems = () => {
   const [category, setCategory] = useState("");
@@ -28,6 +31,12 @@ const AllFoodItems = () => {
     "Vegetarian",
     "Vietnamese",
   ];
+
+  const { data: foodItems, isLoading } = useQuery({
+    queryKey: ["food-items"],
+    queryFn: async () => await getFoodItems(),
+  });
+  console.log(foodItems);
 
   return (
     <section className="pt-24 md:pt-28 lg:pt-32 xl:pt-36">
@@ -92,6 +101,19 @@ const AllFoodItems = () => {
             <Option value="desc">Available max to min</Option>
           </Select>
         </div>
+      </div>
+      {/* food items card */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {foodItems?.result.map((item) => (
+          <FoodItemsCard key={item._id} food={item} />
+        ))}
+      </div>
+      {/* pagination */}
+      <div className="join flex justify-center">
+        <button className="join-item btn btn-ghost">«</button>
+        <button className="join-item btn btn-ghost">1</button>
+        <button className="join-item btn btn-ghost">2</button>
+        <button className="join-item btn btn-ghost">»</button>
       </div>
     </section>
   );

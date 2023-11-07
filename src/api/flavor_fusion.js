@@ -12,6 +12,13 @@ export const addUser = async (user) => {
   return data;
 };
 
+// get food items
+export const getFoodItems = async () => {
+  const response = await axiosInstance.get("/food-items");
+  const data = await response.data;
+  return data;
+};
+
 // add a new food item
 export const addFoodItem = async (newFoodItem) => {
   const response = await axiosInstance.post("/food-items", newFoodItem);
