@@ -12,6 +12,7 @@ const AllFoodItems = () => {
   const [sortOrder, setSortOrder] = useState("");
 
   const categories = [
+    "All",
     "American",
     "BBQ",
     "Curry",
@@ -35,8 +36,8 @@ const AllFoodItems = () => {
   ];
 
   const { data: foodItems, isLoading } = useQuery({
-    queryKey: ["food-items"],
-    queryFn: async () => await getFoodItems(),
+    queryKey: ["food-items", category, sortField, sortOrder],
+    queryFn: async () => await getFoodItems(category, sortField, sortOrder),
   });
   console.log(foodItems);
 
@@ -124,11 +125,11 @@ const AllFoodItems = () => {
         </div>
       </div>
       {/* food items card */}
-      {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {foodItems?.result.map((item) => (
           <FoodItemsCard key={item._id} food={item} />
         ))}
-      </div> */}
+      </div>
       {/* pagination */}
       <div className="join flex justify-center">
         <div className="border border-head">
