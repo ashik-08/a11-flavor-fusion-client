@@ -48,7 +48,7 @@ const AllFoodItems = () => {
     );
   }
 
-  if (foodItems.res.length === 0) {
+  if (foodItems.result.length === 0) {
     return (
       <div className="flex justify-center items-center pt-[20%]">
         <EmptyState />

@@ -31,12 +31,12 @@ const ChefSpecialties = () => {
         className="mySwiper"
       >
         <SwiperSlide>
-          <img src="https://shorturl.at/acJKT" alt="" />
+          <img src="https://i.ibb.co/MhQCB5L/Risotto-milanese.jpg" alt="" />
           <div className="absolute inset-0 slider-img-gradient"></div>
           <div className="absolute transform -translate-y-1/2 left-2 top-1/2 md:left-16 lg:left-20 space-y-1 md:space-y-1.5 lg:space-y-2.5 xl:space-y-4">
             <img
               className="w-12 md:w-20 xl:w-28"
-              src="https://shorturl.at/dmtJW"
+              src="https://i.ibb.co/jyKqxb4/chef-ricci.jpg"
               alt="chef's-img"
             />
             <p className="text-head text-sm md:text-base lg:text-xl xl:text-2xl font-semibold">
@@ -61,7 +61,7 @@ const ChefSpecialties = () => {
           <div className="absolute transform -translate-y-1/2 left-2 top-1/2 md:left-16 lg:left-20 space-y-1 md:space-y-1.5 lg:space-y-2.5 xl:space-y-4">
             <img
               className="w-12 md:w-20 xl:w-28"
-              src="https://shorturl.at/jCLY1"
+              src="https://i.ibb.co/x2fWKYR/chef-aiko.jpg"
               alt="chef's-img"
             />
             <p className="text-head text-sm md:text-base lg:text-xl xl:text-2xl font-semibold">
@@ -87,7 +87,7 @@ const ChefSpecialties = () => {
           <div className="absolute transform -translate-y-1/2 left-2 top-1/2 md:left-16 lg:left-20 space-y-1 md:space-y-1.5 lg:space-y-2.5 xl:space-y-4">
             <img
               className="w-12 md:w-20 xl:w-28"
-              src="https://shorturl.at/dwIY6"
+              src="https://i.ibb.co/2kVCkpM/chef-jack.jpg"
               alt="chef's-img"
             />
             <p className="text-head text-sm md:text-base lg:text-xl xl:text-2xl font-semibold">
