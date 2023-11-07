@@ -34,7 +34,7 @@ const Footer = () => {
               <Link to="/">
                 <Typography
                   variant="h5"
-                  className="text-saffron text-2xl md:text-3xl lg:text-4xl font-metal font-semibold pt-1 md:pt-1.5"
+                  className="text-[#7cc4b0] text-2xl md:text-3xl lg:text-4xl font-metal font-semibold pt-1 md:pt-1.5"
                 >
                   Flavor Fusion
                 </Typography>

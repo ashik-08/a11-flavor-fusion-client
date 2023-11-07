@@ -26,7 +26,7 @@ const NavBar = () => {
           to="/"
           className={({ isActive }) =>
             isActive
-              ? "text-head text-sm md:text-lg font-bold"
+              ? "text-saffron text-sm md:text-lg font-bold"
               : "text-sm md:text-lg"
           }
         >
@@ -38,7 +38,7 @@ const NavBar = () => {
           to="/all-food-items"
           className={({ isActive }) =>
             isActive
-              ? "text-head text-sm md:text-lg font-bold"
+              ? "text-saffron text-sm md:text-lg font-bold"
               : "text-sm md:text-lg"
           }
         >
@@ -50,7 +50,7 @@ const NavBar = () => {
           to="/blog"
           className={({ isActive }) =>
             isActive
-              ? "text-head text-sm md:text-lg font-bold"
+              ? "text-saffron text-sm md:text-lg font-bold"
               : "text-sm md:text-lg"
           }
         >
@@ -93,7 +93,7 @@ const NavBar = () => {
               <img className="w-10 md:w-14 lg:w-16" src={logo} alt="logo-img" />
               <Link
                 to="/"
-                className="text-saffron md:text-3xl lg:text-4xl font-metal font-semibold"
+                className="text-[#7cc4b0] md:text-3xl lg:text-4xl font-metal font-semibold"
               >
                 Flavor Fusion
               </Link>
