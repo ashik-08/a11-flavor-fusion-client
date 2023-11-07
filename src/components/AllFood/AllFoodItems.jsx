@@ -39,10 +39,13 @@ const AllFoodItems = () => {
   console.log(foodItems);
 
   return (
-    <section className="pt-24 md:pt-28 lg:pt-32 xl:pt-36">
-      <h1 className="text-center text-head text-2xl md:text-4xl font-metal font-semibold mb-8 md:mb-12 lg:mb-14 xl:mb-16">
-        Get A Glance of Our Food Items
-      </h1>
+    <section className="pt-24 md:pt-28 lg:pt-32 xl:pt-36 space-y-8 md:space-y-12 lg:space-y-14 xl:space-y-16">
+      {/* title */}
+      <div>
+        <h1 className="text-center text-head text-2xl md:text-4xl font-metal font-semibold">
+          Get A Glance of Our Food Items
+        </h1>
+      </div>
       {/* searching & filtering box */}
       <div className="flex flex-wrap justify-evenly gap-5 p-5 xl:p-10 border rounded-lg">
         {/* search */}
@@ -103,17 +106,19 @@ const AllFoodItems = () => {
         </div>
       </div>
       {/* food items card */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {foodItems?.result.map((item) => (
           <FoodItemsCard key={item._id} food={item} />
         ))}
       </div>
       {/* pagination */}
       <div className="join flex justify-center">
-        <button className="join-item btn btn-ghost">«</button>
-        <button className="join-item btn btn-ghost">1</button>
-        <button className="join-item btn btn-ghost">2</button>
-        <button className="join-item btn btn-ghost">»</button>
+        <div className="border border-head">
+          <button className="join-item btn btn-ghost">«</button>
+          <button className="join-item btn btn-ghost">1</button>
+          <button className="join-item btn btn-ghost">2</button>
+          <button className="join-item btn btn-ghost">»</button>
+        </div>
       </div>
     </section>
   );
