@@ -83,7 +83,10 @@ const SingleFoodPage = () => {
               </span>
             </p>
             <button className="pt-8">
-              <Link to="/order" className="bg-head px-8 py-3.5 rounded-lg">
+              <Link
+                to={`/order-food-item/${id}`}
+                className="bg-head px-8 py-3.5 rounded-lg"
+              >
                 Order Now
               </Link>
             </button>
