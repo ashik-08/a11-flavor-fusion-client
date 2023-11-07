@@ -7,6 +7,7 @@ import LoginPage from "../pages/Login/LoginPage";
 import AddFoodPage from "../pages/AddFoodPage/AddFoodPage";
 import AllFoodPage from "../pages/AllFoodPage/AllFoodPage";
 import PrivateRoute from "./PrivateRoute";
+import SingleFoodPage from "../pages/SingleFoodPage/SingleFoodPage";
 
 export const router = createBrowserRouter([
   {
@@ -19,16 +20,24 @@ export const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
+        path: "/all-food-items",
+        element: <AllFoodPage />,
+      },
+      {
+        path: "/food-item/:id",
+        element: (
+          <PrivateRoute>
+            <SingleFoodPage />
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "/add-food-item",
         element: (
           <PrivateRoute>
             <AddFoodPage />
           </PrivateRoute>
         ),
-      },
-      {
-        path: "/all-food-items",
-        element: <AllFoodPage />,
       },
     ],
   },

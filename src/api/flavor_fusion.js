@@ -28,6 +28,13 @@ export const getFoodItems = async (
   return data;
 };
 
+// get single food item by id
+export const getFoodItemById = async (id) => {
+  const response = await axiosInstance.get(`/food-item/${id}`);
+  const data = await response.data;
+  return data;
+};
+
 // add a new food item
 export const addFoodItem = async (newFoodItem) => {
   const response = await axiosInstance.post("/food-items", newFoodItem);
