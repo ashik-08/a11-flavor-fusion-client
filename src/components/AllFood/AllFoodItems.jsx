@@ -10,6 +10,8 @@ const AllFoodItems = () => {
   const [category, setCategory] = useState("");
   const [sortField, setSortField] = useState("");
   const [sortOrder, setSortOrder] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const limit = 9;
 
   const categories = [
     "All",
@@ -36,8 +38,9 @@ const AllFoodItems = () => {
   ];
 
   const { data: foodItems, isLoading } = useQuery({
-    queryKey: ["food-items", category, sortField, sortOrder],
-    queryFn: async () => await getFoodItems(category, sortField, sortOrder),
+    queryKey: ["food-items", category, sortField, sortOrder, currentPage],
+    queryFn: async () =>
+      await getFoodItems(category, sortField, sortOrder, currentPage, limit),
   });
   console.log(foodItems);
 
@@ -56,6 +59,22 @@ const AllFoodItems = () => {
       </div>
     );
   }
+
+  const totalPage = Math.ceil(foodItems?.totalDataCount / limit);
+
+  const pages = [...Array(totalPage).keys()];
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPage) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
   return (
     <section className="pt-24 md:pt-28 lg:pt-32 xl:pt-36 space-y-8 md:space-y-12 lg:space-y-14 xl:space-y-16">
@@ -133,10 +152,25 @@ const AllFoodItems = () => {
       {/* pagination */}
       <div className="join flex justify-center">
         <div className="border border-head">
-          <button className="join-item btn btn-ghost">«</button>
-          <button className="join-item btn btn-ghost">1</button>
-          <button className="join-item btn btn-ghost">2</button>
-          <button className="join-item btn btn-ghost">»</button>
+          <button onClick={handlePrevPage} className="join-item btn btn-ghost">
+            «
+          </button>
+          {pages?.map((index) => (
+            <button
+              key={index + 1}
+              className={
+                currentPage === index + 1
+                  ? "join-item btn bg-head"
+                  : "join-item btn btn-ghost"
+              }
+              onClick={() => setCurrentPage(index + 1)}
+            >
+              {index + 1}
+            </button>
+          ))}
+          <button onClick={handleNextPage} className="join-item btn btn-ghost">
+            »
+          </button>
         </div>
       </div>
     </section>

@@ -13,8 +13,16 @@ export const addUser = async (user) => {
 };
 
 // get food items
-export const getFoodItems = async (category, sortField, sortOrder) => {
-  const response = await axiosInstance.get(`/food-items?category=${category}&sortField=${sortField}&sortOrder=${sortOrder}`);
+export const getFoodItems = async (
+  category,
+  sortField,
+  sortOrder,
+  currentPage,
+  limit
+) => {
+  const response = await axiosInstance.get(
+    `/food-items?category=${category}&sortField=${sortField}&sortOrder=${sortOrder}&page=${currentPage}&limit=${limit}`
+  );
   const data = await response.data;
   return data;
 };
