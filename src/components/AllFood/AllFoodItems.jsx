@@ -60,19 +60,11 @@ const AllFoodItems = () => {
   console.log(foodItems);
 
   if (isLoading) {
-    return (
-      <div className="flex justify-center items-center pt-[27%]">
-        <LoadingSpinner />
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   if (foodItems.result.length === 0) {
-    return (
-      <div className="flex justify-center items-center pt-[20%]">
-        <EmptyState />
-      </div>
-    );
+    return <EmptyState />;
   }
 
   const totalPage = Math.ceil(foodItems?.totalDataCount / limit);
