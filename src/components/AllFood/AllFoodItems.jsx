@@ -11,6 +11,7 @@ const AllFoodItems = () => {
   const [sortField, setSortField] = useState("");
   const [sortOrder, setSortOrder] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
   const limit = 9;
 
   const categories = [
@@ -38,9 +39,23 @@ const AllFoodItems = () => {
   ];
 
   const { data: foodItems, isLoading } = useQuery({
-    queryKey: ["food-items", category, sortField, sortOrder, currentPage],
+    queryKey: [
+      "food-items",
+      category,
+      sortField,
+      sortOrder,
+      currentPage,
+      searchQuery,
+    ],
     queryFn: async () =>
-      await getFoodItems(category, sortField, sortOrder, currentPage, limit),
+      await getFoodItems(
+        category,
+        sortField,
+        sortOrder,
+        currentPage,
+        limit,
+        searchQuery
+      ),
   });
   console.log(foodItems);
 
@@ -76,6 +91,11 @@ const AllFoodItems = () => {
     }
   };
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setSearchQuery(e.target.search.value);
+  };
+
   return (
     <section className="pt-24 md:pt-28 lg:pt-32 xl:pt-36 space-y-8 md:space-y-12 lg:space-y-14 xl:space-y-16">
       {/* title */}
@@ -87,11 +107,13 @@ const AllFoodItems = () => {
       {/* searching & filtering box */}
       <div className="flex flex-wrap justify-evenly gap-5 p-5 xl:p-10 border rounded-lg">
         {/* search */}
-        <div className="w-60">
-          <Input
-            label="Search food item"
-            icon={<img src="https://i.ibb.co/qMXcMZt/search-30.png" />}
-          />
+        <div className="w-60 relative">
+          <form onSubmit={handleSearch}>
+            <Input name="search" label="Search food item" />
+            <button className="absolute w-5 bottom-1/4 right-2" type="submit">
+              <img src="https://i.ibb.co/qMXcMZt/search-30.png" />
+            </button>
+          </form>
         </div>
         {/* category */}
         <div className="w-60">

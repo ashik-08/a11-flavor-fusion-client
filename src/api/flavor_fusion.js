@@ -18,10 +18,11 @@ export const getFoodItems = async (
   sortField,
   sortOrder,
   currentPage,
-  limit
+  limit,
+  searchQuery
 ) => {
   const response = await axiosInstance.get(
-    `/food-items?category=${category}&sortField=${sortField}&sortOrder=${sortOrder}&page=${currentPage}&limit=${limit}`
+    `/food-items?category=${category}&sortField=${sortField}&sortOrder=${sortOrder}&page=${currentPage}&limit=${limit}&search=${searchQuery}`
   );
   const data = await response.data;
   return data;
