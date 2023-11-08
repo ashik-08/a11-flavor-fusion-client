@@ -2,11 +2,11 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 const FoodItemsCard = ({ food }) => {
-  const { _id, food_name,  food_category, quantity, price } = food;
+  const { _id, food_name, food_image, food_category, quantity, price } = food;
   return (
     <div className="animated-gradient p-5 space-y-5 card-effect">
       <figure className="border-4 border-saffron rounded-lg">
-        {/* <img className="rounded-md" src={food_image} alt="food-image" /> */}
+        <img className="rounded-md" src={food_image} alt="food-image" />
       </figure>
       <div className="space-y-2 px-3 xl:text-lg font-medium">
         <p className="text-sub-head">
