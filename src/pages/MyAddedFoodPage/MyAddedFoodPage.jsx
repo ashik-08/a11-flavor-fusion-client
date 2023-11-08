@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
-import { getMyAddedFoodItems } from "../../api/flavor_fusion";
-import { useQuery } from "@tanstack/react-query";
+import { getMyAddedFoodItems, removeFoodItem } from "../../api/flavor_fusion";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
@@ -21,15 +21,25 @@ import {
   Tooltip,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 const MyAddedFoodPage = () => {
   const { user } = useContext(AuthContext);
+
+  const queryClient = useQueryClient();
 
   const { data: myAddedFoodItems } = useQuery({
     queryKey: ["my-added-food-items"],
     queryFn: async () => await getMyAddedFoodItems(user?.email),
   });
   console.log(myAddedFoodItems);
+
+  const { mutateAsync } = useMutation({
+    mutationKey: ["my-added-food-items"],
+    mutationFn: removeFoodItem,
+    onSuccess: () => queryClient.invalidateQueries(["my-added-food-items"]),
+  });
 
   const TABS = [
     {
@@ -47,6 +57,37 @@ const MyAddedFoodPage = () => {
   ];
 
   const TABLE_HEAD = ["Intro", "Price", "Origin", "Edit", "Delete"];
+
+  const handleFoodDelete = async (id) => {
+    console.log(id);
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, approve it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const toastId = toast.loading("Deleting Food Item...");
+        // delete cart item from database
+        try {
+          const result = await mutateAsync(id);
+          console.log(result);
+          if (result.deletedCount > 0) {
+            toast.success("Food Item Deleted Successfully.", { id: toastId });
+          }
+        } catch (error) {
+          console.error(error);
+          toast.error("An error occurred while adding this item.", {
+            id: toastId,
+          });
+        }
+      }
+    });
+  };
 
   return (
     <>
@@ -190,7 +231,10 @@ const MyAddedFoodPage = () => {
                             </IconButton>
                           </Tooltip>
                         </td>
-                        <td className={classes}>
+                        <td
+                          className={classes}
+                          onClick={() => handleFoodDelete(_id)}
+                        >
                           <Tooltip content="Delete Item">
                             <IconButton variant="text">
                               <svg
