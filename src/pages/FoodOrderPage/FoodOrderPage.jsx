@@ -1,10 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
-import { getFoodItemById } from "../../api/flavor_fusion";
+import { getFoodItemById, orderFoodItem } from "../../api/flavor_fusion";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import moment from "moment";
+import toast from "react-hot-toast";
 
 const FoodOrderPage = () => {
   const { id } = useParams();
@@ -17,6 +18,67 @@ const FoodOrderPage = () => {
     queryFn: async () => await getFoodItemById(id),
   });
   console.log(foodItem);
+
+  const { mutateAsync } = useMutation({
+    mutationFn: orderFoodItem,
+  });
+
+  const handleFoodOrder = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const food_name = form.food_name.value;
+    const price = Number(form.price.value).toFixed(2);
+    const quantity = Number(form.quantity.value);
+    const buying_date = form.date.value;
+    const buyer_name = form.buyer_name.value;
+    const buyer_email = form.buyer_email.value;
+
+    const newFoodOrder = {
+      food_id: foodItem?._id,
+      food_image: foodItem?.food_image,
+      food_name,
+      food_category: foodItem?.food_category,
+      ordered: quantity,
+      total_cost: price,
+      food_owner_name: foodItem?.added_by_name,
+      food_owner_email: foodItem?.added_by_email,
+      buying_date,
+      buyer_name,
+      buyer_email,
+      origin: foodItem?.origin,
+      ingredients: foodItem?.ingredients,
+    };
+    console.log(newFoodOrder);
+
+    const toastId = toast.loading("Placing Food Order...");
+
+    try {
+      const result = await mutateAsync(newFoodOrder);
+      console.log(result);
+
+      if (
+        result?.orderResult?.insertedId &&
+        result?.updateResult?.modifiedCount > 0
+      ) {
+        toast.success("Food Order Placed Successfully.", { id: toastId });
+        form.reset();
+      }
+      if (result.message === "Own food item") {
+        toast.error("Can't order own added food item.", { id: toastId });
+      }
+      if (result.message === "Item is not available") {
+        toast.error("Can't order! Food item is not available.", { id: toastId });
+      }
+      if (result.message === "Less item available") {
+        toast.error("Can't order more than available item.", { id: toastId });
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("An error occurred while placing order.", {
+        id: toastId,
+      });
+    }
+  };
 
   return (
     <>
@@ -36,7 +98,7 @@ const FoodOrderPage = () => {
             distribution of letters, as opposed to using Content here.
           </p>
           <form
-            // onSubmit={handleAddFoodOrder}
+            onSubmit={handleFoodOrder}
             className="grid grid-cols-1 md:grid-cols-2 gap-6"
           >
             <span className="space-y-4">
