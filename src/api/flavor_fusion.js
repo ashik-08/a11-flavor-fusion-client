@@ -1,9 +1,25 @@
-import axios from "axios";
+import Axios from "../hooks/Axios";
 
-const axiosInstance = axios.create({
-  baseURL: "http://localhost:5001/api/v1",
-  withCredentials: true,
-});
+// const axiosInstance = axios.create({
+//   baseURL: "http://localhost:5001/api/v1",
+//   withCredentials: true,
+// });
+
+const axiosInstance = Axios();
+
+// issue a token upon successful login
+export const issueToken = async (loggedInUser) => {
+  const response = await axiosInstance.post("/jwt", loggedInUser);
+  const data = await response.data;
+  return data;
+};
+
+// revoke issued token upon successful logout
+export const revokeToken = async (loggedInUser) => {
+  const response = await axiosInstance.post("/logout", loggedInUser);
+  const data = await response.data;
+  return data;
+};
 
 // add a new user
 export const addUser = async (user) => {
@@ -77,14 +93,14 @@ export const orderFoodItem = async (newFoodOrder) => {
   return data;
 };
 
-// get all my added food item using email
+// get all my ordered food item using email
 export const getMyOrderedFoodItems = async (email) => {
   const response = await axiosInstance.get(`/my-ordered-foods?email=${email}`);
   const data = await response.data;
   return data;
 };
 
-// delete a food item using id
+// delete a my ordered food item using id
 export const removeMyOrderedFoodItem = async (id) => {
   const response = await axiosInstance.delete(`/my-ordered-foods/${id}`);
   const data = await response.data;

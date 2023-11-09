@@ -9,6 +9,7 @@ import {
   signOut,
 } from "firebase/auth";
 import auth from "../firebase/firebase.config";
+import { issueToken, revokeToken } from "../api/flavor_fusion";
 
 export const AuthContext = createContext();
 
@@ -24,7 +25,7 @@ const AuthProvider = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  //   login with email & password
+  // login with email & password
   const signInUser = (email, password) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
@@ -37,16 +38,23 @@ const AuthProvider = ({ children }) => {
   };
 
   // logout user
-  const logOut = () => {
+  const logOut = async () => {
+    const loggedInUser = { email: user?.email };
     setLoading(true);
+    await revokeToken(loggedInUser);
     return signOut(auth);
   };
 
   // observe auth state change
   useEffect(() => {
-    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      const loggedInUser = { email: currentUser?.email };
       setUser(currentUser);
       setLoading(false);
+      // if user exists then issue a token
+      if (currentUser) {
+        await issueToken(loggedInUser);
+      }
     });
     return () => {
       unSubscribe();
