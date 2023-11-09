@@ -1,10 +1,13 @@
 import { Helmet } from "react-helmet-async";
-import { getMyOrderedFoodItems, removeFoodItem } from "../../api/flavor_fusion";
+import {
+  getMyOrderedFoodItems,
+  removeMyOrderedFoodItem,
+} from "../../api/flavor_fusion";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
+import { UserPlusIcon } from "@heroicons/react/24/solid";
 import {
   Card,
   CardHeader,
@@ -38,8 +41,8 @@ const MyOrderedFoodPage = () => {
 
   const { mutateAsync } = useMutation({
     mutationKey: ["my-ordered-food-items"],
-    mutationFn: removeFoodItem,
-    onSuccess: () => queryClient.invalidateQueries(["my-added-food-items"]),
+    mutationFn: removeMyOrderedFoodItem,
+    onSuccess: () => queryClient.invalidateQueries(["my-ordered-food-items"]),
   });
 
   if (myOrderedFoodItems?.length === 0) {
@@ -63,7 +66,7 @@ const MyOrderedFoodPage = () => {
 
   const TABLE_HEAD = ["Item", "Total Price", "Owner", "Added At", "Delete"];
 
-  const handleFoodDelete = async (id) => {
+  const handleFoodOrderDelete = async (id) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -74,17 +77,19 @@ const MyOrderedFoodPage = () => {
       confirmButtonText: "Yes, approve it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const toastId = toast.loading("Deleting Food Item...");
-        // delete cart item from database
+        const toastId = toast.loading("Deleting Ordered Food Item...");
+        // delete own added food item order from database
         try {
           const result = await mutateAsync(id);
           console.log(result);
-          if (result.deletedCount > 0) {
-            toast.success("Food Item Deleted Successfully.", { id: toastId });
+          if (result?.orderDeleteResult?.deletedCount > 0) {
+            toast.success("Ordered Food Deleted Successfully.", {
+              id: toastId,
+            });
           }
         } catch (error) {
           console.error(error);
-          toast.error("An error occurred while adding this item.", {
+          toast.error("An error occurred while deleting this item.", {
             id: toastId,
           });
         }
@@ -113,11 +118,6 @@ const MyOrderedFoodPage = () => {
                 </Typography>
               </div>
               <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-                {/* <Link to="/all-food-items">
-                  <Button variant="outlined" size="md">
-                    view all
-                  </Button>
-                </Link> */}
                 <Link to="/all-food-items">
                   <Button className="flex items-center gap-3" size="md">
                     <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Order
@@ -214,16 +214,6 @@ const MyOrderedFoodPage = () => {
                             </div>
                           </div>
                         </td>
-
-                        {/* <td className={classes}>
-                          <Typography
-                            variant="paragraph"
-                            className="text-saffron font-medium"
-                          >
-                            ${total_cost}
-                          </Typography>
-                        </td> */}
-
                         <td className={classes}>
                           <div className="flex flex-col">
                             <Typography
@@ -241,13 +231,10 @@ const MyOrderedFoodPage = () => {
                             </Typography>
                           </div>
                         </td>
-
                         <td className={classes}>
                           <Typography
                             variant="paragraph"
                             color="blue-gray"
-                            // className="bg-head w-fit px-4 py-2 bg-opacity-80 rounded-md font-medium "
-                            // className="text-head font-medium"
                             className="w-fit px-3 py-1 bg-opacity-80 rounded-md font-medium border border-saffron"
                           >
                             {" "}
@@ -264,31 +251,9 @@ const MyOrderedFoodPage = () => {
                             {buying_date}
                           </Typography>
                         </td>
-
-                        {/* <td className={classes}>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="bg-head w-fit px-4 py-2 bg-opacity-80 rounded-md font-medium "
-                          >
-                            {" "}
-                            {food_owner_name}
-                          </Typography>
-                        </td> */}
-
-                        {/* <td className={classes}>
-                          <Link to={`/update-food-item/${_id}`}>
-                            <Tooltip content="Edit Item">
-                              <IconButton variant="text">
-                                <PencilIcon className="h-4 w-4" />
-                              </IconButton>
-                            </Tooltip>
-                          </Link>
-                        </td> */}
-
                         <td
                           className={classes}
-                          onClick={() => handleFoodDelete(_id)}
+                          onClick={() => handleFoodOrderDelete(_id)}
                         >
                           <Tooltip content="Delete Item">
                             <IconButton variant="text">

@@ -75,7 +75,7 @@ const MyAddedFoodPage = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         const toastId = toast.loading("Deleting Food Item...");
-        // delete cart item from database
+        // delete own added food item from database
         try {
           const result = await mutateAsync(id);
           console.log(result);

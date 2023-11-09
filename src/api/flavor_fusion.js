@@ -76,3 +76,10 @@ export const getMyOrderedFoodItems = async (email) => {
   const data = await response.data;
   return data;
 };
+
+// delete a food item using id
+export const removeMyOrderedFoodItem = async (id) => {
+  const response = await axiosInstance.delete(`/my-ordered-foods/${id}`);
+  const data = await response.data;
+  return data;
+};
