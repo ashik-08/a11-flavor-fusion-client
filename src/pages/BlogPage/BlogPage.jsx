@@ -38,7 +38,10 @@ const BlogPage = () => {
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
   return (
-    <div className="pt-28 md:pt-36 lg:pt-40 xl:pt-[18%]">
+    <div className="pt-28 md:pt-32 lg:pt-36">
+      <h1 className="text-center text-head text-2xl md:text-4xl font-metal font-semibold mb-8 md:mb-12 lg:mb-14 xl:mb-16">
+        Question & Answer
+      </h1>
       <Accordion
         open={open === 1}
         icon={<Icon id={1} open={open} />}
