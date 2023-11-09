@@ -59,8 +59,6 @@ const MyAddedFoodPage = () => {
   const TABLE_HEAD = ["Intro", "Price", "Origin", "Edit", "Delete"];
 
   const handleFoodDelete = async (id) => {
-    console.log(id);
-
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -195,6 +193,7 @@ const MyAddedFoodPage = () => {
                                 color="blue-gray"
                                 className="font-medium"
                               >
+                                {" "}
                                 {food_name}
                               </Typography>
                               <Typography
@@ -202,6 +201,7 @@ const MyAddedFoodPage = () => {
                                 color="blue-gray"
                                 className="font-normal opacity-70"
                               >
+                                {" "}
                                 {food_category}
                               </Typography>
                             </div>
@@ -221,15 +221,18 @@ const MyAddedFoodPage = () => {
                             color="blue-gray"
                             className="bg-head w-fit px-4 py-2 bg-opacity-80 rounded-md font-medium "
                           >
+                            {" "}
                             {origin}
                           </Typography>
                         </td>
                         <td className={classes}>
-                          <Tooltip content="Edit Item">
-                            <IconButton variant="text">
-                              <PencilIcon className="h-4 w-4" />
-                            </IconButton>
-                          </Tooltip>
+                          <Link to={`/update-food-item/${_id}`}>
+                            <Tooltip content="Edit Item">
+                              <IconButton variant="text">
+                                <PencilIcon className="h-4 w-4" />
+                              </IconButton>
+                            </Tooltip>
+                          </Link>
                         </td>
                         <td
                           className={classes}
