@@ -69,3 +69,10 @@ export const orderFoodItem = async (newFoodOrder) => {
   const data = await response.data;
   return data;
 };
+
+// get all my added food item using email
+export const getMyOrderedFoodItems = async (email) => {
+  const response = await axiosInstance.get(`/my-ordered-foods?email=${email}`);
+  const data = await response.data;
+  return data;
+};

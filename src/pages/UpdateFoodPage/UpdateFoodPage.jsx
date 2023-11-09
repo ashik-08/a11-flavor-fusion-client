@@ -3,12 +3,13 @@ import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getFoodItemById, updateFoodItem } from "../../api/flavor_fusion";
 
 const UpdateFoodPage = () => {
   const { user } = useContext(AuthContext);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const { data: foodItem } = useQuery({
     queryKey: ["food-item"],
@@ -55,6 +56,8 @@ const UpdateFoodPage = () => {
       const result = await mutateAsync(updatedDetails);
       if (result.modifiedCount > 0) {
         toast.success("Food Item Updated Successfully.", { id: toastId });
+        form.reset();
+        return navigate("/added-food-items");
       }
       if (result.message === "No data found") {
         toast.error("No data found.", { id: toastId });

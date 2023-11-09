@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getFoodItemById, orderFoodItem } from "../../api/flavor_fusion";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
@@ -12,9 +12,10 @@ const FoodOrderPage = () => {
   const { user } = useContext(AuthContext);
   const [orderPrice, setOrderPrice] = useState();
   const date = moment().format("ddd, DD MMM YYYY HH:mm:ss [GMT]");
+  const navigate = useNavigate();
 
   const { data: foodItem } = useQuery({
-    queryKey: ["order-food-item"],
+    queryKey: ["food-item"],
     queryFn: async () => await getFoodItemById(id),
   });
   console.log(foodItem);
@@ -27,7 +28,7 @@ const FoodOrderPage = () => {
     e.preventDefault();
     const form = e.target;
     const food_name = form.food_name.value;
-    const price = Number(form.price.value).toFixed(2);
+    const price = Number(form.price.value);
     const quantity = Number(form.quantity.value);
     const buying_date = form.date.value;
     const buyer_name = form.buyer_name.value;
@@ -62,12 +63,15 @@ const FoodOrderPage = () => {
       ) {
         toast.success("Food Order Placed Successfully.", { id: toastId });
         form.reset();
+        return navigate("/all-food-items");
       }
       if (result.message === "Own food item") {
         toast.error("Can't order own added food item.", { id: toastId });
       }
       if (result.message === "Item is not available") {
-        toast.error("Can't order! Food item is not available.", { id: toastId });
+        toast.error("Can't order! Food item is not available.", {
+          id: toastId,
+        });
       }
       if (result.message === "Less item available") {
         toast.error("Can't order more than available item.", { id: toastId });
@@ -137,7 +141,7 @@ const FoodOrderPage = () => {
                 placeholder={`Enter food quantity (Remaining: ${foodItem?.quantity})`}
                 required
                 onChange={(e) =>
-                  setOrderPrice(Number(e.target.value * foodItem?.price))
+                  setOrderPrice(Number(e.target.value * foodItem?.price).toFixed(2))
                 }
               />
             </span>

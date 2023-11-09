@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { getMyAddedFoodItems, removeFoodItem } from "../../api/flavor_fusion";
+import { getMyOrderedFoodItems, removeFoodItem } from "../../api/flavor_fusion";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
@@ -25,24 +25,24 @@ import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import EmptyState from "../../components/EmptyState/EmptyState";
 
-const MyAddedFoodPage = () => {
+const MyOrderedFoodPage = () => {
   const { user } = useContext(AuthContext);
 
   const queryClient = useQueryClient();
 
-  const { data: myAddedFoodItems } = useQuery({
-    queryKey: ["my-added-food-items"],
-    queryFn: async () => await getMyAddedFoodItems(user?.email),
+  const { data: myOrderedFoodItems } = useQuery({
+    queryKey: ["my-ordered-food-items"],
+    queryFn: async () => await getMyOrderedFoodItems(user?.email),
   });
-  console.log(myAddedFoodItems);
+  console.log(myOrderedFoodItems);
 
   const { mutateAsync } = useMutation({
-    mutationKey: ["my-added-food-items"],
+    mutationKey: ["my-ordered-food-items"],
     mutationFn: removeFoodItem,
     onSuccess: () => queryClient.invalidateQueries(["my-added-food-items"]),
   });
 
-  if (myAddedFoodItems?.length === 0) {
+  if (myOrderedFoodItems?.length === 0) {
     return <EmptyState />;
   }
 
@@ -61,7 +61,7 @@ const MyAddedFoodPage = () => {
     },
   ];
 
-  const TABLE_HEAD = ["Item", "Price / Item", "Origin", "Edit", "Delete"];
+  const TABLE_HEAD = ["Item", "Total Price", "Owner", "Added At", "Delete"];
 
   const handleFoodDelete = async (id) => {
     Swal.fire({
@@ -95,7 +95,7 @@ const MyAddedFoodPage = () => {
   return (
     <>
       <Helmet>
-        <title>Flavor Fusion | My Added Foods</title>
+        <title>Flavor Fusion | My Ordered Foods</title>
       </Helmet>
       {/* TABLE */}
       <section className="pt-24 md:pt-28 lg:pt-32 xl:pt-36">
@@ -106,21 +106,21 @@ const MyAddedFoodPage = () => {
             <div className="mb-8 flex items-center justify-between gap-8">
               <div>
                 <Typography variant="h5" color="blue-gray">
-                  Added Food Items List
+                  Ordered Food Items List
                 </Typography>
                 <Typography color="gray" className="mt-1 font-normal">
-                  See information about added food items
+                  See information about ordered food items
                 </Typography>
               </div>
               <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-                <Link to="/all-food-items">
+                {/* <Link to="/all-food-items">
                   <Button variant="outlined" size="md">
                     view all
                   </Button>
-                </Link>
-                <Link to="/add-food-item">
+                </Link> */}
+                <Link to="/all-food-items">
                   <Button className="flex items-center gap-3" size="md">
-                    <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add
+                    <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Order
                     food
                   </Button>
                 </Link>
@@ -166,20 +166,21 @@ const MyAddedFoodPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {myAddedFoodItems?.map(
+                {myOrderedFoodItems?.map(
                   (
                     {
                       _id,
                       food_image,
                       food_name,
                       food_category,
-                      price,
-                      quantity,
-                      origin,
+                      total_cost,
+                      ordered,
+                      food_owner_name,
+                      buying_date,
                     },
                     index
                   ) => {
-                    const isLast = index === myAddedFoodItems?.length - 1;
+                    const isLast = index === myOrderedFoodItems?.length - 1;
                     const classes = isLast
                       ? "p-4"
                       : "p-4 border-b border-blue-gray-50";
@@ -213,34 +214,69 @@ const MyAddedFoodPage = () => {
                             </div>
                           </div>
                         </td>
+
+                        {/* <td className={classes}>
+                          <Typography
+                            variant="paragraph"
+                            className="text-saffron font-medium"
+                          >
+                            ${total_cost}
+                          </Typography>
+                        </td> */}
+
                         <td className={classes}>
                           <div className="flex flex-col">
                             <Typography
                               variant="paragraph"
                               className="text-saffron font-medium"
                             >
-                              ${price}
+                              ${total_cost}
                             </Typography>
                             <Typography
                               variant="small"
                               color="blue-gray"
                               className="font-normal opacity-80"
                             >
-                              {quantity} items
+                              x {ordered}
                             </Typography>
                           </div>
                         </td>
+
+                        <td className={classes}>
+                          <Typography
+                            variant="paragraph"
+                            color="blue-gray"
+                            // className="bg-head w-fit px-4 py-2 bg-opacity-80 rounded-md font-medium "
+                            // className="text-head font-medium"
+                            className="w-fit px-3 py-1 bg-opacity-80 rounded-md font-medium border border-saffron"
+                          >
+                            {" "}
+                            {food_owner_name}
+                          </Typography>
+                        </td>
+
                         <td className={classes}>
                           <Typography
                             variant="small"
                             color="blue-gray"
-                            className="w-fit px-3 py-1 bg-opacity-80 rounded-md font-medium border border-saffron"
+                            className="font-normal"
                           >
-                            {" "}
-                            {origin}
+                            {buying_date}
                           </Typography>
                         </td>
-                        <td className={classes}>
+
+                        {/* <td className={classes}>
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="bg-head w-fit px-4 py-2 bg-opacity-80 rounded-md font-medium "
+                          >
+                            {" "}
+                            {food_owner_name}
+                          </Typography>
+                        </td> */}
+
+                        {/* <td className={classes}>
                           <Link to={`/update-food-item/${_id}`}>
                             <Tooltip content="Edit Item">
                               <IconButton variant="text">
@@ -248,7 +284,8 @@ const MyAddedFoodPage = () => {
                               </IconButton>
                             </Tooltip>
                           </Link>
-                        </td>
+                        </td> */}
+
                         <td
                           className={classes}
                           onClick={() => handleFoodDelete(_id)}
@@ -303,4 +340,4 @@ const MyAddedFoodPage = () => {
   );
 };
 
-export default MyAddedFoodPage;
+export default MyOrderedFoodPage;

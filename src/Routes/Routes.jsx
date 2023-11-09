@@ -11,6 +11,7 @@ import SingleFoodPage from "../pages/SingleFoodPage/SingleFoodPage";
 import FoodOrderPage from "../pages/FoodOrderPage/FoodOrderPage";
 import MyAddedFoodPage from "../pages/MyAddedFoodPage/MyAddedFoodPage";
 import UpdateFoodPage from "../pages/UpdateFoodPage/UpdateFoodPage";
+import MyOrderedFoodPage from "../pages/MyOrderedFoodPage/MyOrderedFoodPage";
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +44,14 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: "/added-food-items",
+        element: (
+          <PrivateRoute>
+            <MyAddedFoodPage />
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "/update-food-item/:id",
         element: (
           <PrivateRoute>
@@ -59,10 +68,10 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/added-food-items",
+        path: "/ordered-food-items",
         element: (
           <PrivateRoute>
-            <MyAddedFoodPage />
+            <MyOrderedFoodPage />
           </PrivateRoute>
         ),
       },

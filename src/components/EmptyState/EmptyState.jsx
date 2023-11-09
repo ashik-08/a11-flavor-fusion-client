@@ -16,8 +16,8 @@ const EmptyState = () => {
 
         <p className="pt-4">No Food Items Found 🥺</p>
 
-        <Link className="text-saffron" to="/add-food-item">
-          Click here to add some..
+        <Link className="text-saffron" to="/">
+          First add some..
         </Link>
       </div>
     </div>
