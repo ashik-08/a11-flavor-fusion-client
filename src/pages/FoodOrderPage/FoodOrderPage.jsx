@@ -138,7 +138,7 @@ const FoodOrderPage = () => {
                 type="number"
                 name="quantity"
                 id=""
-                placeholder={`Enter food quantity (Remaining: ${foodItem?.quantity})`}
+                placeholder={`Enter order quantity (Remaining: ${foodItem?.quantity})`}
                 required
                 onChange={(e) =>
                   setOrderPrice(Number(e.target.value * foodItem?.price).toFixed(2))

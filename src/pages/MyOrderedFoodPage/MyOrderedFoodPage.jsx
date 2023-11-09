@@ -18,7 +18,6 @@ import {
   CardFooter,
   Tabs,
   TabsHeader,
-  Tab,
   Avatar,
   IconButton,
   Tooltip,
@@ -48,21 +47,6 @@ const MyOrderedFoodPage = () => {
   if (myOrderedFoodItems?.length === 0) {
     return <EmptyState />;
   }
-
-  const TABS = [
-    {
-      label: "All",
-      value: "all",
-    },
-    {
-      label: "Recent",
-      value: "recent",
-    },
-    {
-      label: "Oldest",
-      value: "oldest",
-    },
-  ];
 
   const TABLE_HEAD = ["Item", "Total Price", "Owner", "Added At", "Delete"];
 
@@ -128,12 +112,8 @@ const MyOrderedFoodPage = () => {
             </div>
             <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
               <Tabs value="all" className="w-full md:w-max">
-                <TabsHeader>
-                  {TABS.map(({ label, value }, idx) => (
-                    <Tab key={idx} value={value}>
-                      &nbsp;&nbsp;{label}&nbsp;&nbsp;
-                    </Tab>
-                  ))}
+                <TabsHeader className="px-5 py-2 text-sub-head font-semibold">
+                  All
                 </TabsHeader>
               </Tabs>
               <div className="w-full md:w-72">
