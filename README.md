@@ -8,14 +8,26 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
 ## Project Name
-
-- Flavor Fusion
+- **Flavor Fusion**
 
 ## Live Website
+- [Flavor Fusion Website](https://a11-flavor-fusion.web.app/)
 
-- https://a11-flavor-fusion.web.app/
+## Description
+Flavor Fusion is a restaurant management website developed using React, React Router, Tailwind CSS, DaisyUI, Material Tailwind, Firebase, MongoDB, Node.js, and Express.js. The website enables users to explore and manage food items, including viewing all items, details of a single item, adding a new food item, deleting an item, and modifying an item. The design focuses on visual appeal, color contrast, proper alignment, and space utilization for an enhanced user experience.
 
-## 6 key points of Flavor Fusion website:
+## Technology
+- React
+- React Router
+- Tailwind CSS
+- DaisyUI
+- Material Tailwind
+- Firebase
+- MongoDB
+- Node.js
+- Express.js
+
+## 6 Key Points of Flavor Fusion website:
 
 1. **Dynamic Menu Management:**
 
@@ -54,3 +66,59 @@ Currently, two official plugins are available:
    - **Description:** The server-side is deployed on Vercel, a popular hosting platform, while the client-side is hosted on Firebase. This approach optimizes performance and scalability, allowing users to access the website and its features with ease.
 
 These features collectively aim to provide a comprehensive and efficient online food ordering and management system, catering to the needs of both restaurant administrators and customers.
+
+## Project Features
+
+- Tailwind CSS, Material Tailwind Component, DaisyUI Component
+
+- React Router & Component
+
+- Error Page Element
+
+- `useState`, `useEffect`, `useContext` Hooks
+
+- Custom Hook
+
+- Axios, Axios Interceptor
+
+- `useParams`, `useLoaderData`
+
+- loader function
+
+- Array Methods (map, find, filter)
+
+- Conditional Branching (if-else)
+
+- Key, Props
+
+- PropTypes Handle
+
+- Destructuring
+
+- Private Route
+
+- Firebase Integration
+
+- Email & Password Authentication
+
+- Google Authentication
+
+- JWT Token Authorization
+
+- Tanstack Query
+
+- React Swiper Carousel
+
+- React Helmet
+
+- Moment.js
+
+- React Icons, React Hot Toast, Sweet-Alert 2
+
+- onClick function
+
+    - Show Food Details Page
+    - Delete Food Item
+    - Delete Ordered Item from Order Table
+    - Login & Logout User
+    - Google Pop-up Sign In
