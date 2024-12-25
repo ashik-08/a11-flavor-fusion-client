@@ -1,14 +1,19 @@
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
+// import required modules
+import { Autoplay, Pagination } from "swiper/modules";
+
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-
 import "./CustomerReview.css";
 
-// import required modules
-import { Autoplay, Pagination } from "swiper/modules";
+import user1 from "../../../assets/home/user-1.jpg";
+import user2 from "../../../assets/home/user-2.jpg";
+import user3 from "../../../assets/home/user-3.jpg";
+import user4 from "../../../assets/home/user-4.jpg";
+import user5 from "../../../assets/home/user-5.jpg";
 
 const CustomerReview = () => {
   return (
@@ -33,7 +38,7 @@ const CustomerReview = () => {
           <div className="space-y-1 md:space-y-1.5 lg:space-y-2.5 xl:space-y-4 p-5 md:pl-16 lg:pl-28 xl:pl-36 mb-10 border rounded-lg shadow-sm">
             <img
               className="w-12 md:w-20 xl:w-28 drop-shadow-md"
-              src="https://erinknitwear.com/wp-content/uploads/2021/01/Erin-Knitwear22-1-400x400.jpg"
+              src={user1}
               alt="user-img"
             />
             <p className="text-head text-sm md:text-base lg:text-xl xl:text-2xl font-semibold">
@@ -55,7 +60,7 @@ const CustomerReview = () => {
           <div className="space-y-1 md:space-y-1.5 lg:space-y-2.5 xl:space-y-4 p-5 md:pl-16 lg:pl-28 xl:pl-36 mb-10 border rounded-lg shadow-sm">
             <img
               className="w-12 md:w-20 xl:w-28 drop-shadow-md"
-              src="https://www.rappler.com/uploads/2023/10/russell-ku-author-photo-scaled-400x400.jpeg"
+              src={user2}
               alt="user-img"
             />
             <p className="text-head text-sm md:text-base lg:text-xl xl:text-2xl font-semibold">
@@ -77,7 +82,7 @@ const CustomerReview = () => {
           <div className="space-y-1 md:space-y-1.5 lg:space-y-2.5 xl:space-y-4 p-5 md:pl-16 lg:pl-28 xl:pl-36 mb-10 border rounded-lg shadow-sm">
             <img
               className="w-12 md:w-20 xl:w-28 drop-shadow-md"
-              src="https://miro.medium.com/v2/resize:fit:400/1*RM8giWAHiR4ofI5_yOPwUg.jpeg"
+              src={user3}
               alt="user-img"
             />
             <p className="text-head text-sm md:text-base lg:text-xl xl:text-2xl font-semibold">
@@ -99,7 +104,7 @@ const CustomerReview = () => {
           <div className="space-y-1 md:space-y-1.5 lg:space-y-2.5 xl:space-y-4 p-5 md:pl-16 lg:pl-28 xl:pl-36 mb-10 border rounded-lg shadow-sm">
             <img
               className="w-12 md:w-20 xl:w-28 drop-shadow-md"
-              src="https://www.charlesbank.com/wp-content/uploads/2021/08/Dan-Trunzo-for-the-web-400x400-1.jpg"
+              src={user4}
               alt="user-img"
             />
             <p className="text-head text-sm md:text-base lg:text-xl xl:text-2xl font-semibold">
@@ -120,7 +125,7 @@ const CustomerReview = () => {
           <div className="space-y-1 md:space-y-1.5 lg:space-y-2.5 xl:space-y-4 p-5 md:pl-16 lg:pl-28 xl:pl-36 mb-10 border rounded-lg shadow-sm">
             <img
               className="w-12 md:w-20 xl:w-28 drop-shadow-md"
-              src="https://media.licdn.com/dms/image/D4E03AQEgnFelVqjuIg/profile-displayphoto-shrink_400_400/0/1693841887242?e=1703116800&v=beta&t=MrgGFKoe89tEP5bYBVLcsV_XLKCMTpyDuCYEcXpiNWc"
+              src={user5}
               alt="user-img"
             />
             <p className="text-head text-sm md:text-base lg:text-xl xl:text-2xl font-semibold">
